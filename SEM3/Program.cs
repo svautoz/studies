@@ -110,4 +110,45 @@ void ShowSecond(int number)
     Console.WriteLine(number / 10 % 10);
 }
 
-ShowSecond(44537);
+//ShowSecond(44537);
+
+// 11. Дано число из отрезка [10, 99]. Показать наибольшую цифру числа
+int GetBigger(int number)
+{
+    int firstNumber = number / 10;
+    int secondNumber = number % 10;
+    if (firstNumber > secondNumber)
+        return firstNumber;
+    else
+        return secondNumber;
+}
+//Console.WriteLine(GetBigger(57));
+
+// 12. Удалить вторую цифру трёхзначного числа
+void DeleteSecondNumber(int number)
+{
+    Console.WriteLine((number / 100) * 10 + (number % 10));
+}
+//DeleteSecondNumber(759);
+
+// 13. Выяснить, кратно ли число заданному, если нет, вывести остаток.
+void isMultiple(int number, int divider)
+{
+    int result = number % divider;
+    if (result == 0)
+        Console.WriteLine($"Число {number} делиться на {divider} без остатка.");
+    else
+        Console.WriteLine($"Остаток: {result}");
+}
+//isMultiple(15, 5);
+
+// 14. Найти третью цифру числа или сообщить, что её нет
+void findThirdNumber(int number)
+{
+    int result = number / 100 % 10;
+    if (result == 0)
+        Console.WriteLine("Третьей цифры нет.");
+    else
+        Console.WriteLine(result);
+}
+findThirdNumber(785);
