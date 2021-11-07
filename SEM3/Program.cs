@@ -151,4 +151,100 @@ void findThirdNumber(int number)
     else
         Console.WriteLine(result);
 }
-findThirdNumber(785);
+// findThirdNumber(785);
+
+// 15. Дано число. Проверить кратно ли оно 7 и 23
+bool isMultipleSevenAndTwentyThree(int number)
+{
+    if ((number % 7 == 0) && (number % 23 == 0))
+        return true;
+    else
+        return false;
+}
+// if (isMultipleSevenAndTwentyThree(161))
+//     Console.WriteLine("Делиться");
+// else
+//     Console.WriteLine("Не делиться");
+
+// 16. Дано число обозначающее день недели. Выяснить является номер дня недели выходным 
+bool isWeekend(int number)
+{
+    if ((number == 6) || (number == 7))
+        return true;
+    else
+        return false;
+}
+// if (isWeekend(6))
+//     Console.WriteLine("Выходной");
+// else
+//     Console.WriteLine("Будни");
+
+// 17. По двум заданным числам проверять является ли одно квадратом другого
+bool isSquare(int x, int y)
+{
+    if (x == y * y)
+        return true;
+    else
+        return false;
+}
+// if (isSquare(25, 5))
+//     Console.WriteLine("Да");
+// else
+//     Console.WriteLine("нет");
+
+// 18. Проверить истинность утверждения ¬(X ⋁ Y) = ¬X ⋀ ¬Y
+bool CheckStatement(bool X, bool Y)
+{
+    if (!(X || Y) == (!X && !Y))
+        return true;
+    else
+        return false;
+}
+// if (CheckStatement(false, false) && CheckStatement(true, false) && CheckStatement(false, true) && CheckStatement(true, true))
+//     Console.WriteLine("Да");
+// else
+//     Console.WriteLine("нет");
+
+// 19. Определить номер четверти плоскости, в которой находится точка с координатами Х и У, причем X ≠ 0 и Y ≠ 0
+int Quarter(int x, int y)
+{
+    if (x < 0 && y < 0) return 4;
+    if (x < 0 && y > 0) return 1;
+    if (x > 0 && y > 0) return 2;
+    if (x > 0 && y < 0) return 3;
+    return 0;
+}
+// Console.WriteLine(Quarter(-3, 7));
+
+// 20. Задать номер четверти, показать диапазоны для возможных координат
+string QuaterRange(int quarter)
+{
+    string[] range = new string[] { "X in (-inf, 0); Y in (0, +inf)", "X in (0, +inf); Y in (0, +inf)", "X in (0, +inf); Y in (-inf, 0)", "X in (-inf, 0); Y in (-inf, 0)" };
+    return range[quarter - 1];
+}
+// Console.WriteLine(QuaterRange(3));
+
+// 21. Программа проверяет пятизначное число на палиндромом.
+bool isPalendrom(int number)
+{
+    string num_str = Convert.ToString(number);
+    int length = num_str.Length;
+    for (int i = 0; i < length / 2; i++)
+    {
+        if (num_str[i] != num_str[length - i - 1]) return false;
+    }
+    return true;
+}
+// Console.WriteLine(isPalendrom(12121));
+
+// 22. Найти расстояние между точками в пространстве 2D/3D
+double GetDistance(int dim, int[] point_1, int[] point_2)
+{
+    double sum = 0;
+    for (int i = 0; i < dim; i++)
+    {
+        sum += Math.Pow(point_1[i] - point_2[i], 2);
+    }
+    return Math.Sqrt(sum);
+}
+Console.WriteLine(GetDistance(3, new int[] { 3, 6, 98 }, new int[] { 54, 3, 2 }));
