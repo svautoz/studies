@@ -23,7 +23,7 @@ int ShowLess(int x, int y)
     else
         return y;
 }
-int ShowMore(int x, int y)
+int ShowBiggest(int x, int y)
 {
     if (x > y) return x;
     else
@@ -31,7 +31,7 @@ int ShowMore(int x, int y)
 }
 
 //Console.WriteLine(ShowLess(25, 15));
-//Console.WriteLine(ShowMore(25, 15));
+//Console.WriteLine(ShowBiggest(25, 15));
 
 //По введенному номеру дня недели вывести его название
 string DayName(int number)
@@ -62,21 +62,21 @@ int Max(int[] array)
 //Console.WriteLine(Max(new int[]{43, 55, 77}));
 
 //Написать программу вычисления значения функции y=f(a)
-int f(int a)
+int F(int a)
 {
     return a + 1;
 }
 int a = 10;
-int y = f(a);
+int y = F(a);
 //Console.WriteLine(y);
 
 // 6. Выяснить является ли число чётным
-bool isEven(int x)
+bool IsEven(int x)
 {
     if (x % 2 == 0) return true;
     return false;
 }
-//Console.WriteLine(isEven(14));
+//Console.WriteLine(IsEven(14));
 
 // 7. Показать числа от -N до N
 void ShowN(int N)
@@ -113,7 +113,7 @@ void ShowSecond(int number)
 //ShowSecond(44537);
 
 // 11. Дано число из отрезка [10, 99]. Показать наибольшую цифру числа
-int GetBigger(int number)
+int GetBiggestNumber(int number)
 {
     int firstNumber = number / 10;
     int secondNumber = number % 10;
@@ -122,7 +122,7 @@ int GetBigger(int number)
     else
         return secondNumber;
 }
-//Console.WriteLine(GetBigger(57));
+//Console.WriteLine(GetBiggestNumber(57));
 
 // 12. Удалить вторую цифру трёхзначного числа
 void DeleteSecondNumber(int number)
@@ -132,7 +132,7 @@ void DeleteSecondNumber(int number)
 //DeleteSecondNumber(759);
 
 // 13. Выяснить, кратно ли число заданному, если нет, вывести остаток.
-void isMultiple(int number, int divider)
+void IsMultiple(int number, int divider)
 {
     int result = number % divider;
     if (result == 0)
@@ -140,54 +140,54 @@ void isMultiple(int number, int divider)
     else
         Console.WriteLine($"Остаток: {result}");
 }
-//isMultiple(15, 5);
+//IsMultiple(15, 5);
 
 // 14. Найти третью цифру числа или сообщить, что её нет
-void findThirdNumber(int number)
+void FindThirdNumber(int number)
 {
-    int result = number / 100 % 10;
+    int result = Math.Abs(number / 100 % 10);
     if (result == 0)
         Console.WriteLine("Третьей цифры нет.");
     else
         Console.WriteLine(result);
 }
-// findThirdNumber(785);
+//FindThirdNumber(0);
 
 // 15. Дано число. Проверить кратно ли оно 7 и 23
-bool isMultipleSevenAndTwentyThree(int number)
+bool IsMultipleSevenAndTwentyThree(int number)
 {
     if ((number % 7 == 0) && (number % 23 == 0))
         return true;
     else
         return false;
 }
-// if (isMultipleSevenAndTwentyThree(161))
+// if (IsMultipleSevenAndTwentyThree(161))
 //     Console.WriteLine("Делиться");
 // else
 //     Console.WriteLine("Не делиться");
 
 // 16. Дано число обозначающее день недели. Выяснить является номер дня недели выходным 
-bool isWeekend(int number)
+bool IsWeekend(int number)
 {
     if ((number == 6) || (number == 7))
         return true;
     else
         return false;
 }
-// if (isWeekend(6))
+// if (IsWeekend(6))
 //     Console.WriteLine("Выходной");
 // else
 //     Console.WriteLine("Будни");
 
 // 17. По двум заданным числам проверять является ли одно квадратом другого
-bool isSquare(int x, int y)
+bool IsSquare(int x, int y)
 {
     if (x == y * y)
         return true;
     else
         return false;
 }
-// if (isSquare(25, 5))
+// if (IsSquare(25, 5))
 //     Console.WriteLine("Да");
 // else
 //     Console.WriteLine("нет");
@@ -225,7 +225,7 @@ string QuaterRange(int quarter)
 // Console.WriteLine(QuaterRange(3));
 
 // 21. Программа проверяет пятизначное число на палиндромом.
-bool isPalendrom(int number)
+bool IsPalendrom(int number)
 {
     string num_str = Convert.ToString(number);
     int length = num_str.Length;
@@ -235,7 +235,7 @@ bool isPalendrom(int number)
     }
     return true;
 }
-// Console.WriteLine(isPalendrom(12121));
+// Console.WriteLine(IsPalendrom(12121));
 
 // 22. Найти расстояние между точками в пространстве 2D/3D
 double GetDistance(int dim, int[] point_1, int[] point_2)
