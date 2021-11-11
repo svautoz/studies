@@ -274,3 +274,39 @@ else
 {
     Console.WriteLine("Есть проблема");
 }
+
+// 31. Задать массив из 8 элементов и вывести их на экран
+Console.WriteLine("31. Задать массив из 8 элементов и вывести их на экран");
+int[] CreateArray(int size)
+{
+    int[] array = new int[size];
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = new Random().Next(0, 100);
+    }
+    return array;
+}
+int[] array = CreateArray(18);
+for (int i = 0; i < array.Length; i++)
+{
+    Console.Write(array[i] + " ");
+}
+Console.WriteLine();
+// 32. Задать массив из 8 элементов, заполненных нулями и единицами вывести их на экран
+Console.WriteLine("32. Задать массив из 8 элементов, заполненных нулями и единицами вывести их на экран");
+string[] CreateBinaryArray(int size)
+{
+    string[] array = new string[size];
+    Random rand = new Random();
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = Convert.ToString(rand.Next(155), 2);
+    }
+    return array;
+}
+string[] binary_array = CreateBinaryArray(18);
+for (int i = 0; i < binary_array.Length; i++)
+{
+    Console.Write(binary_array[i] + " ");
+}
+Console.WriteLine();
