@@ -18,14 +18,49 @@ void ShowSquareTable(int N)
 //ShowSquareTable(15);
 
 // 24. Найти кубы чисел от 1 до N
-void ShowCubeTable(int N)
+Console.WriteLine("24. Найти кубы чисел от 1 до N");
+int[] GetCubeArray(int N)
 {
+    int[] array = new int[N];
     for (int i = 1; i <= N; i++)
     {
-        Console.Write(i * i * i + " ");
+        array[i - 1] = i * i * i;
     }
+    return array;
 }
-// ShowCubeTable(10);
+
+if (GetCubeArray(5).SequenceEqual(new int[] { 1, 4, 9, 16, 25 }))
+{
+    Console.WriteLine("Все ок");
+}
+else
+{
+    Console.WriteLine("Есть проблема");
+}
+if (GetCubeArray(5).SequenceEqual(new int[] { 1, 8, 27, 64, 125 }))
+{
+    Console.WriteLine("Все ок");
+}
+else
+{
+    Console.WriteLine("Есть проблема");
+}
+if (GetCubeArray(0).SequenceEqual(new int[] { 1, 8, 27, 64, 125 }))
+{
+    Console.WriteLine("Все ок");
+}
+else
+{
+    Console.WriteLine("Есть проблема");
+}
+if (GetCubeArray(0).SequenceEqual(new int[] { }))
+{
+    Console.WriteLine("Все ок");
+}
+else
+{
+    Console.WriteLine("Есть проблема");
+}
 
 // 25. Найти сумму чисел от 1 до А
 Console.WriteLine("25. Найти сумму чисел от 1 до А");
@@ -107,11 +142,20 @@ else
 Console.WriteLine("27. Определить количество цифр в числе");
 int CountDigit(int number)
 {
-    string str_num = number.ToString();
+    string str_num = Math.Abs(number).ToString();
     return str_num.Length;
 }
 
 if (CountDigit(456) == 3)
+{
+    Console.WriteLine("Все ок");
+}
+else
+{
+    Console.WriteLine("Есть проблема");
+}
+
+if (CountDigit(-456) == 3)
 {
     Console.WriteLine("Все ок");
 }
@@ -182,12 +226,12 @@ else
 Console.WriteLine("29. Написать программу вычисления произведения чисел от 1 до N");
 int GetMulti(int N)
 {
-    int sum = 1;
+    int mult = 1;
     for (int i = 1; i <= N; i++)
     {
-        sum *= i;
+        mult *= i;
     }
-    return sum;
+    return mult;
 }
 if (GetMulti(4) == 24)
 {
@@ -292,6 +336,9 @@ for (int i = 0; i < array.Length; i++)
     Console.Write(array[i] + " ");
 }
 Console.WriteLine();
+
+
+
 // 32. Задать массив из 8 элементов, заполненных нулями и единицами вывести их на экран
 Console.WriteLine("32. Задать массив из 8 элементов, заполненных нулями и единицами вывести их на экран");
 string[] CreateBinaryArray(int size)
@@ -304,9 +351,8 @@ string[] CreateBinaryArray(int size)
     }
     return array;
 }
-string[] binary_array = CreateBinaryArray(18);
+string[] binary_array = CreateBinaryArray(8);
 for (int i = 0; i < binary_array.Length; i++)
 {
     Console.Write(binary_array[i] + " ");
 }
-Console.WriteLine();
