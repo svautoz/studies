@@ -128,20 +128,21 @@ array = MakeArray(100, 999, 12);
 PrintArray(array);
 Console.WriteLine($"Кол-во четных чисел: {EvenNumbers(array)}");
 Console.WriteLine($"Кол-во нечетных чисел: {OddNumbers(array)}");
+
 // 37. В одномерном массиве из 123 чисел найти количество элементов из отрезка [10,99]
 Console.WriteLine("37. В одномерном массиве из 123 чисел найти количество элементов из отрезка [10,99]");
 array = MakeArray(0, 999, 123);
 PrintArray(array);
-int FindBetween(int[] array)
+int FindBetween(int[] array, int first, int last)
 {
     int count = 0;
     for (int i = 0; i < array.Length; i++)
     {
-        if ((array[i] <= 99) && (array[i] >= 10)) count++;
+        if ((array[i] <= last) && (array[i] >= first)) count++;
     }
     return count;
 }
-Console.WriteLine(FindBetween(array));
+Console.WriteLine($"Кол-во элементов: {FindBetween(array, 10, 99)}");
 
 // 38. Найти сумму чисел одномерного массива стоящих на нечетной позиции
 Console.WriteLine("38. Найти сумму чисел одномерного массива стоящих на нечетной позиции");
@@ -218,36 +219,39 @@ Console.WriteLine(IsSidesOfTriangle(4, 3, 5));
 // Console.WriteLine(CountOverZero(5));
 
 // 43. Написать программу преобразования десятичного числа в двоичное
-// Console.WriteLine("43. Написать программу преобразования десятичного числа в двоичное");
-// Console.Write("Введите число для преобразования: ");
-// int number = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("43. Написать программу преобразования десятичного числа в двоичное");
+Console.Write("Введите число для преобразования: ");
+int number = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите желаемую систему исчисления до десятичной: ");
+int num_sys = Convert.ToInt32(Console.ReadLine());
 // //Первый вариант
-// Console.WriteLine(Convert.ToString(number, 2));
+Console.WriteLine(Convert.ToString(number, 2));
 // //Второй вариант
-// byte[] GetBinaryNumber(int number)
-// {
-//     int div = number, i = 0;
-//     while (div > 0)
-//     {
-//         div /= 2;
-//         i++;
-//     }
-//     byte[] bit_number = new byte[i];
-//     div = number;
-//     while (div > 0)
-//     {
-//         i--;
-//         bit_number[i] = Convert.ToByte(div % 2);
-//         div /= 2;        
-//     }
-//     return bit_number;
-// }
+byte[] GetFromDecimalNumSystem(int number, int num_sys)
+{
+    int div = number, i = 0;
+    while (div > 0)
+    {
+        div /= num_sys;
+        i++;
+    }
+    byte[] num_sys_number = new byte[i];
+    div = number;
+    while (div > 0)
+    {
+        i--;
+        num_sys_number[i] = Convert.ToByte(div % num_sys);
+        div /= num_sys;
+    }
+    return num_sys_number;
+}
 
-// byte[] bit_number = GetBinaryNumber(number);
-// for (int i = 0; i < bit_number.Length; i++)
-// {
-//     Console.Write(bit_number[i] + "");
-// }
+byte[] num_sys_number = GetFromDecimalNumSystem(number, num_sys);
+for (int i = 0; i < num_sys_number.Length; i++)
+{
+    Console.Write(num_sys_number[i] + "");
+}
+System.Console.WriteLine();
 
 // 44. Найти точку пересечения двух прямых заданных уравнением y=kx+b, а1 k1 и а2 и k2 заданы
 Console.WriteLine("44. Найти точку пересечения двух прямых заданных уравнением y=kx+b, а1 k1 и а2 и k2 заданы");
@@ -286,13 +290,70 @@ void FibRecur(int a, int b, int limit)
 }
 Console.Write("1 1 ");
 FibRecur(1, 1, 2000);
+System.Console.WriteLine();
 
 // 46. Написать программу масштабирования фигуры
-void ChangeScale()
+Console.WriteLine("46. Написать программу масштабирования фигуры (прямоугольник)");
+double[,] ChangeScale(double[,] points, int scale)
 {
-
+    int init_point_index = 0;
+    double min_x = points[0, 0], min_y = points[0, 1];
+    //Вычисляем точку, от которой будем масштабировать
+    for (int row = 1; row < points.GetLength(0); row++)
+    {
+        if ((points[row, 0] <= min_x) && (points[row, 1] <= min_y)) init_point_index = row;
+    }
+    // Вычислаем коэффициент отношения сторон
+    double k, square;
+    double height = 0, width = 0;
+    double new_height = 0, new_width = 0;
+    for (int row = 0; row < points.GetLength(0); row++)
+    {
+        if (row == init_point_index) continue;
+        if (points[row, 0] == points[init_point_index, 0]) height = Math.Abs(points[row, 1] - points[init_point_index, 1]);
+        if (points[row, 1] == points[init_point_index, 1]) width = Math.Abs(points[row, 0] - points[init_point_index, 0]);
+    }
+    k = width / height;
+    square = width * height;
+    //Вычисляем длины сторон прямоугольника по новой площади
+    double new_square = square * scale;
+    new_height = Math.Sqrt(new_square / k);
+    new_width = new_height * k;
+    //System.Console.WriteLine(new_height + "  " + new_width);
+    //Меняем координаты точек под новый масштаб
+    for (int row = 0; row < points.GetLength(0); row++)
+    {
+        if (row == init_point_index) continue;
+        if (points[row, 0] == points[init_point_index, 0])
+        {
+            points[row, 1] = points[init_point_index, 1] + new_height;
+            continue;
+        }
+        if (points[row, 1] == points[init_point_index, 1])
+        {
+            points[row, 0] = points[init_point_index, 0] + new_width;
+            continue;
+        }
+        points[row, 0] = points[init_point_index, 0] + new_width;
+        points[row, 1] = points[init_point_index, 1] + new_height;
+    }
+    return points;
 }
+//Исполнение
+double[,] points = new double[,] { { 2, 2 }, { 2, 10 }, { 6, 2 }, { 6, 10 } };
+int new_scale = 5;
+points = ChangeScale(points, new_scale);
+for (int x = 0; x < points.GetLength(0); x++)
+{
+    for (int y = 0; y < points.GetLength(1); y++)
+    {
+        Console.Write(points[x, y] + " ");
+    }
+    System.Console.WriteLine();
+}
+
 // 47. Написать программу копирования массива
+Console.WriteLine("47. Написать программу копирования массива");
 int[] CopyArray(int[] array)
 {
     int[] array_copy = new int[array.Length];
@@ -302,3 +363,8 @@ int[] CopyArray(int[] array)
     }
     return array_copy;
 }
+int[] array_for_copy = MakeArray(0, 1546, 18);
+int[] copied_array = CopyArray(array_for_copy);
+array_for_copy[0] = -1;
+PrintArray(array_for_copy);
+PrintArray(copied_array);
