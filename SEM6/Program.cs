@@ -161,12 +161,18 @@ Console.WriteLine(SumOddPositions(array));
 
 // 39. Найти произведение пар чисел в одномерном массиве. Парой считаем первый и последний элемент, второй и предпоследний и т.д.
 Console.WriteLine("39. Найти произведение пар чисел в одномерном массиве. Парой считаем первый и последний элемент, второй и предпоследний и т.д.");
-array = MakeArray(0, 10, 7);
+array = MakeArray(1, 10, 7);
 PrintArray(array);
 int[] MultiPair(int[] array)
 {
-    int[] mult_array = new int[array.Length / 2];
-    for (int i = 0; i < array.Length / 2; i++)
+    int new_array_length;
+    if (array.Length % 2 == 0)
+        new_array_length = array.Length / 2;
+    else
+        new_array_length = array.Length / 2 + 1;
+
+    int[] mult_array = new int[new_array_length];
+    for (int i = 0; i < new_array_length; i++)
     {
         mult_array[i] = array[i] * array[array.Length - i - 1];
     }
