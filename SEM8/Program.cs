@@ -12,6 +12,23 @@ void PrintMatrix(int[,] array)
     System.Console.WriteLine();
 }
 
+void Print3DArrayWithIndex(int[,,] array)
+{
+    for (int dim_1 = 0; dim_1 < array.GetLength(0); dim_1++)
+    {
+        for (int dim_2 = 0; dim_2 < array.GetLength(1); dim_2++)
+        {
+            for (int dim_3 = 0; dim_3 < array.GetLength(2); dim_3++)
+            {
+                System.Console.Write(array[dim_1, dim_2, dim_3] + $"({dim_1}, {dim_2}, {dim_3}) ");
+            }
+            System.Console.WriteLine();
+        }
+        System.Console.WriteLine();
+    }
+    System.Console.WriteLine();
+}
+
 void PrintArray(int[] array)
 {
     for (int i = 0; i < array.Length; i++)
@@ -306,12 +323,148 @@ PrintMatrix(GetMultipliedMatrix(matrixA, matrixB));
 
 // 62. В двумерном массиве целых чисел. Удалить строку и столбец, на пересечении которых расположен наименьший элемент.
 System.Console.WriteLine("62. В двумерном массиве целых чисел. Удалить строку и столбец, на пересечении которых расположен наименьший элемент.");
+//Считает для первого наименьшего значения
+int[,] GetModifiedArray(int[,] array)
+{
+    int min = array[0, 0];
+    int[,] newArray = new int[array.GetLength(0) - 1, array.GetLength(1) - 1];
+    int[] minIndex = new int[2];
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        for (int col = 0; col < array.GetLength(1); col++)
+        {
+            if (array[row, col] < min)
+            {
+                min = array[row, col];
+                minIndex[0] = row;
+                minIndex[1] = col;
+            }
+        }
+    }
+    int rowNew = 0, colNew = 0;
+    for (int row = 0; row < array.GetLength(0); row++)
+    {
+        if (row == minIndex[0]) continue;
+        colNew = 0;
+        for (int col = 0; col < array.GetLength(1); col++)
+        {
+            if (col == minIndex[1]) continue;
+            newArray[rowNew, colNew] = array[row, col];
+            colNew++;
+        }
+        rowNew++;
+    }
+    return newArray;
+}
+
+matrix = MakeRandomArray(6, 5, 1, 10);
+PrintMatrix(matrix);
+PrintMatrix(GetModifiedArray(matrix));
+
+
 // 63. Сформировать трехмерный массив не повторяющимися двузначными числами показать его построчно на экран выводя индексы соответствующего элемента
 System.Console.WriteLine("63. Сформировать трехмерный массив не повторяющимися двузначными числами показать его построчно на экран выводя индексы соответствующего элемента");
+int[,,] Make3DArray(int firstDimSize, int SecondDimSize, int thirdDimSize)
+{
+    if (firstDimSize * SecondDimSize * thirdDimSize > 90)
+    {
+        System.Console.WriteLine("При таком размере массива невозможно выполнить данную задачу.");
+        return new int[,,] { };
+    }
+    int index = 10;
+    int[,,] array3D = new int[firstDimSize, SecondDimSize, thirdDimSize];
+    for (int dim_1 = 0; dim_1 < firstDimSize; dim_1++)
+    {
+        for (int dim_2 = 0; dim_2 < SecondDimSize; dim_2++)
+        {
+            for (int dim_3 = 0; dim_3 < thirdDimSize; dim_3++)
+            {
+                array3D[dim_1, dim_2, dim_3] = index++;
+            }
+        }
+    }
+    return array3D;
+}
+
+int[,,] array3D = Make3DArray(4, 5, 4);
+Print3DArrayWithIndex(array3D);
+
 // 64. Показать треугольник Паскаля
 // *Сделать вывод в виде равнобедренного треугольника
+System.Console.WriteLine("64. Показать треугольник Паскаля");
+//Сделал на примере определенного размера
+int[,] GetPascalTriangle()
+{
+    int[,] pascalArray = new int[8, 15];
+    pascalArray[0, pascalArray.GetLength(1) / 2] = 1;
+    int firstValue, secondValue;
+    for (int row = 1; row < pascalArray.GetLength(0); row++)
+    {
+        for (int col = 0; col < pascalArray.GetLength(1); col++)
+        {
+            if (col - 1 < 0) firstValue = 0;
+            else firstValue = pascalArray[row - 1, col - 1];
+
+            if (col + 1 > pascalArray.GetLength(1) - 1) secondValue = 0;
+            else secondValue = pascalArray[row - 1, col + 1];
+
+            pascalArray[row, col] = firstValue + secondValue;
+        }
+    }
+
+    return pascalArray;
+}
+
+int[,] pascalArray;
+PrintMatrix(GetPascalTriangle());
+
 // 65. Спирально заполнить двумерный массив:
 //   1  2  3  4
 //  12 13 14  5
 //  11 16 15  6
 //  10  9  8  7 
+System.Console.WriteLine("65. Спирально заполнить двумерный массив:");
+int[,] GetSpiralArray(int size)
+{
+    int[,] array = new int[size, size];
+    int increment = 1;
+    int indexRow = 0;
+    int indexCol = -1;
+    int cycle = 0;
+    while (increment <= size * size)
+    {
+        do
+        {
+            if(increment > size * size) return array;
+            indexCol++;
+            array[indexRow, indexCol] = increment++;
+        } while (indexCol + 1 < array.GetLength(1) - cycle);
+
+        do
+        {
+            if(increment > size * size) return array;
+            indexRow++;
+            array[indexRow, indexCol] = increment++;
+        } while (indexRow + 1 < array.GetLength(0) - cycle);
+
+        do
+        {
+            if(increment > size * size) return array;
+            indexCol--;
+            array[indexRow, indexCol] = increment++;
+        } while (indexCol > cycle);
+
+
+        do
+        {
+            if(increment > size * size) return array;
+            indexRow--;
+            array[indexRow, indexCol] = increment++;
+        } while (indexRow > cycle + 1);
+
+        cycle++;
+    }
+    return array;
+}
+
+PrintMatrix(GetSpiralArray(7));
